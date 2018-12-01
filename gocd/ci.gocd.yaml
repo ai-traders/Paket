@@ -1,0 +1,44 @@
+format_version: 3
+pipelines:
+  paket:
+    group: stcdev
+    label_template: "${git[:8]}"
+    materials:
+      git:
+        type: configrepo
+    stages:
+      - build:
+          clean_workspace: true
+          jobs:
+            build:
+              elastic_profile_id: w.c2.m2048.e10
+              artifacts:
+                - build:
+                    source: temp/dotnetcore/Paket.*.nupkg
+                    destination: temp/dotnetcore/
+              tasks:
+               - exec:
+                  command: ide
+                  arguments:
+                    - "./build.sh && ./build.sh DotnetPackage --single-target"
+      - publish:
+          clean_workspace: true
+          jobs:
+            build:
+              elastic_profile_id: w.c2.m2048.e10
+              secure_variables:
+                NUGET_API_KEY: "qEZJXdFf0Pk="
+              artifacts:
+                - build:
+                    source: temp/dotnetcore/Paket.*.nupkg
+                    destination: temp/dotnetcore/
+              tasks:
+               - fetch:
+                  stage: build
+                  job: build
+                  source: temp/dotnetcore/
+                  destination: temp
+               - exec:
+                  command: ide
+                  arguments:
+                    - "dotnet nuget push ./temp/dotnetcore/Paket.*.nupkg --source http://nuget.ai-traders.com/api/v3/index.json --api-key ${NUGET_API_KEY}"

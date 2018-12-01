@@ -1,3 +1,6 @@
+#### 105.190.0 - 2018-12-01
+* Added ability to use paket as global tool
+
 #### 5.190.0 - 2018-11-26
 * BUGFIX: Allow Username/password to be UTF8 - https://github.com/fsprojects/Paket/pull/3431
 * BUGFIX: Fixed handling of DotNetCoreAppVersion.V3_0 - https://github.com/fsprojects/Paket/pull/3437

@@ -27,7 +27,7 @@ pipelines:
             build:
               elastic_profile_id: w.c2.m2048.e10
               secure_variables:
-                NUGET_API_KEY: "qEZJXdFf0Pk="
+                NUGET_API_KEY: "AES:18+haEo9BWYkD6I5u9BZnA==:tV5QUtkl83P96lOk1mRpUg=="
               artifacts:
                 - build:
                     source: temp/dotnetcore/Paket.*.nupkg
